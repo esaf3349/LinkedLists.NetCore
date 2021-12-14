@@ -53,9 +53,42 @@ namespace LinkedLists.Core.Implementation
 
             while (current != null)
             {
-                var currentValue = current.Value;
-                //var some = current.Value.Equals(value);
-                if (currentValue.Equals(value))
+                if (current.Value.Equals(value))
+                {
+                    if (previous == null)
+                    {
+                        Head = Head.Next;
+
+                        if (Head == null)
+                            Tail = null;
+                    }
+                    else
+                    {
+                        previous.Next = current.Next;
+
+                        if (current.Next == null)
+                            Tail = previous;
+                    }
+
+                    NodesCount--;
+                    return true;
+                }
+
+                previous = current;
+                current = current.Next;
+            }
+
+            return false;
+        }
+
+        public bool RemoveOne(Func<T, bool> filter)
+        {
+            var current = Head;
+            ISimpleLinkedNode<T> previous = null;
+
+            while (current != null)
+            {
+                if (filter(current.Value))
                 {
                     if (previous == null)
                     {
@@ -86,7 +119,7 @@ namespace LinkedLists.Core.Implementation
         public int RemoveAll(T value)
         {
             var current = Head;
-            ISimpleLinkedNode<T> previous = null;
+            ISimpleLinkedNode<T> previousAcceptable = null;
 
             var removedCount = 0;
 
@@ -94,7 +127,7 @@ namespace LinkedLists.Core.Implementation
             {
                 if (current.Value.Equals(value))
                 {
-                    if (previous == null)
+                    if (previousAcceptable == null)
                     {
                         Head = Head.Next;
 
@@ -103,17 +136,57 @@ namespace LinkedLists.Core.Implementation
                     }
                     else
                     {
-                        previous.Next = current.Next;
+                        previousAcceptable.Next = current.Next;
 
                         if (current.Next == null)
-                            Tail = previous;
+                            Tail = previousAcceptable;
                     }
 
                     NodesCount--;
                     removedCount++;
                 }
+                else
+                    previousAcceptable = current;
 
-                previous = current;
+                current = current.Next;
+            }
+
+            return removedCount;
+        }
+
+        public int RemoveAll(Func<T, bool> filter)
+        {
+            var current = Head;
+            ISimpleLinkedNode<T> previousAcceptable = null;
+
+            var removedCount = 0;
+
+            while (current != null)
+            {
+                if (filter(current.Value))
+                {
+                    if (previousAcceptable == null)
+                    {
+                        Head = Head.Next;
+
+                        if (Head == null)
+                            Tail = null;
+                    }
+                    else
+                    {
+                        previousAcceptable.Next = current.Next;
+
+                        if (current.Next == null)
+                            Tail = previousAcceptable;
+                    }
+
+                    NodesCount--;
+                    removedCount++;
+                } 
+                else
+                    previousAcceptable = current;
+
+
                 current = current.Next;
             }
 
@@ -131,12 +204,49 @@ namespace LinkedLists.Core.Implementation
             }
         }
 
+        public ISimpleLinkedList<T> Where(Func<T, bool> filter)
+        {
+            var list = new SimpleLinkedList<T>();
+
+            if (Head == null)
+                return list;
+
+            var current = Head;
+            while (current != null)
+            {
+                if (filter(current.Value))
+                    list.Add(current.Value);
+
+                current = current.Next;
+            }
+
+            return list;
+        }
+
         public T FirstOrDefault()
         {
             if (Head == null)
                 return default;
 
             return Head.Value;
+        }
+
+        public T FirstOrDefault(Func<T, bool> filter)
+        {
+            if (Head == null)
+                return default;
+
+            var current = Head;
+
+            while (current != null)
+            {
+                if (filter(current.Value))
+                    return current.Value;
+
+                current = current.Next;
+            }
+
+            return default;
         }
 
         public T LastOrDefault()
@@ -155,6 +265,24 @@ namespace LinkedLists.Core.Implementation
         public bool Any()
         {
             return Head != null;
+        }
+
+        public bool Any(Func<T, bool> filter)
+        {
+            if (Head == null)
+                return false;
+
+            var current = Head;
+
+            while (current != null)
+            {
+                if (filter(current.Value))
+                    return true;
+
+                current = current.Next;
+            }
+
+            return false;
         }
 
         public IEnumerator<T> GetEnumerator()

@@ -70,7 +70,8 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
                 linkedList.Add(value);
 
             // Act
-            linkedList.RemoveOne(earth);
+            var isRemoved1 = linkedList.RemoveOne(earth);
+            var isRemoved2 = linkedList.RemoveOne(AstronomicalObjectMocks.Sol());
 
             // Assert
             var expected = new[] { moon, earth };
@@ -83,6 +84,42 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             }
 
             Assert.Equal(expected.Length, linkedList.Length());
+            Assert.True(isRemoved1);
+            Assert.False(isRemoved2);
+        }
+
+        [Fact]
+        public void RemoveOneLambda()
+        {
+            // Arrange
+            var earth = AstronomicalObjectMocks.Earth();
+            var moon = AstronomicalObjectMocks.Moon();
+            var sol = AstronomicalObjectMocks.Sol();
+
+            var values = new[] { earth, moon, sol };
+
+            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+
+            foreach (var value in values)
+                linkedList.Add(value);
+
+            // Act
+            var isRemoved1 = linkedList.RemoveOne(o => o.Mass > moon.Mass);
+            var isRemoved2 = linkedList.RemoveOne(o => o.Class == AstronomicalClass.Galaxy);
+
+            // Assert
+            var expected = new[] { moon, sol };
+
+            var i = 0;
+            foreach (var value in linkedList)
+            {
+                Assert.Equal(expected[i], value);
+                i++;
+            }
+
+            Assert.Equal(expected.Length, linkedList.Length());
+            Assert.True(isRemoved1);
+            Assert.False(isRemoved2);
         }
 
         [Fact]
@@ -100,7 +137,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
                 linkedList.Add(value);
 
             // Act
-            linkedList.RemoveAll(earth);
+            var removedCount = linkedList.RemoveAll(earth);
 
             // Assert
             var expected = new[] { moon };
@@ -113,6 +150,43 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             }
 
             Assert.Equal(expected.Length, linkedList.Length());
+            Assert.Equal(2, removedCount);
+        }
+
+        [Fact]
+        public void RemoveAllLambda()
+        {
+            // Arrange
+            var earth = AstronomicalObjectMocks.Earth();
+            var moon = AstronomicalObjectMocks.Moon();
+            var sol = AstronomicalObjectMocks.Sol();
+
+            var values = new[] { earth, moon, sol };
+
+            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+
+            foreach (var value in values)
+                linkedList.Add(value);
+
+            // Act
+            var removedCount1 = linkedList.RemoveAll(o => o.Name == moon.Name || o.Name == sol.Name);
+            var removedCount2 = linkedList.RemoveAll(o => o.Class == AstronomicalClass.Galaxy);
+
+            // Assert
+            var expected = new[] { earth };
+
+            var i = 0;
+            foreach (var value in linkedList)
+            {
+                Assert.Equal(expected[i], value);
+                i++;
+            }
+
+            Assert.Equal(expected.Length, linkedList.Length());
+            Assert.Equal(earth, linkedList.FirstOrDefault());
+            Assert.Equal(earth, linkedList.LastOrDefault());
+            Assert.Equal(2, removedCount1);
+            Assert.Equal(0, removedCount2);
         }
 
         [Fact]
@@ -156,6 +230,41 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
         }
 
         [Fact]
+        public void Where()
+        {
+            // Arrange
+            var earth = AstronomicalObjectMocks.Earth();
+            var moon = AstronomicalObjectMocks.Moon();
+            var sol = AstronomicalObjectMocks.Sol();
+            var orion = AstronomicalObjectMocks.OrionNebula();
+            var milkyWay = AstronomicalObjectMocks.MilkyWay();
+
+            var values = new[] { earth, moon, sol, orion, milkyWay };
+
+            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+
+            foreach (var value in values)
+                linkedList.Add(value);
+
+            // Act
+            var lambdaResults = linkedList.Where(o => o.Mass > moon.Mass && o.Mass < milkyWay.Mass);
+
+            // Assert
+            var expected = new[] { earth, sol, orion };
+
+            var i = 0;
+            foreach (var value in lambdaResults)
+            {
+                Assert.Equal(expected[i], value);
+                i++;
+            }
+
+            Assert.Equal(expected.Length, lambdaResults.Length());
+            Assert.Equal(expected[0], lambdaResults.FirstOrDefault());
+            Assert.Equal(expected[^1], lambdaResults.LastOrDefault());
+        }
+
+        [Fact]
         public void FirstOrDefault()
         {
             // Arrange
@@ -171,11 +280,14 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             foreach (var value in values)
                 filledList.Add(value);
 
+            var lambdaResult = filledList.FirstOrDefault(o => o.Name == moon.Name);
+
             // Act
 
             // Assert
             Assert.Equal(default, emptyList.FirstOrDefault());
             Assert.Equal(earth, filledList.FirstOrDefault());
+            Assert.Equal(moon.Name, lambdaResult.Name);
         }
 
         [Fact]
@@ -217,11 +329,16 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             foreach (var value in values)
                 filledList.Add(value);
 
+            var lambdaResult1 = filledList.Any(o => o.Name == sol.Name && o.Mass == sol.Mass);
+            var lambdaResult2 = filledList.Any(o => o.Name == sol.Name && o.Mass != sol.Mass);
+
             // Act
 
             // Assert
             Assert.False(emptyList.Any());
             Assert.True(filledList.Any());
+            Assert.True(lambdaResult1);
+            Assert.False(lambdaResult2);
         }
 
         [Fact]

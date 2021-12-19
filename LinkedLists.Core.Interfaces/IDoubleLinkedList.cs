@@ -7,5 +7,6 @@ namespace LinkedLists.Core.Interfaces
     public interface IDoubleLinkedList<T> : ISimpleLinkedList<T>
     {
         public T LastOrDefault(Func<T, bool> filter);
+        public IEnumerable<T> ToReversedEnumerable();
     }
 }

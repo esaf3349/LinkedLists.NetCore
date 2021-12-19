@@ -355,5 +355,16 @@ namespace LinkedLists.Core.Implementation
         {
             return ((IEnumerable)this).GetEnumerator();
         }
+
+        public IEnumerable<T> ToReversedEnumerable()
+        {
+            IDoubleLinkedNode<T> current = Tail;
+
+            while (current != null)
+            {
+                yield return current.Value;
+                current = current.Previous;
+            }
+        }
     }
 }

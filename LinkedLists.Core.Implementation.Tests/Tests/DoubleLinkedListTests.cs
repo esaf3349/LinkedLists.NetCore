@@ -2,6 +2,7 @@
 using LinkedLists.Core.Implementation.Tests.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -433,6 +434,35 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
                 Assert.Equal(values[i], enumerator.Current);
                 enumerator.MoveNext();
             }
+        }
+
+        [Fact]
+        public void ToReversedEnumerable()
+        {
+            // Arrange
+            var earth = AstronomicalObjectMocks.Earth();
+            var moon = AstronomicalObjectMocks.Moon();
+            var sol = AstronomicalObjectMocks.Sol();
+
+            var values = new[] { earth, moon, sol };
+
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
+
+            linkedList.AddRange(values);
+
+            // Act
+            var reversedEnumerable = linkedList.ToReversedEnumerable();
+
+            // Assert
+            int i = values.Length - 1;
+            foreach (var value in reversedEnumerable)
+            {
+                Assert.Equal(values[i], value);
+                i--;
+            }
+
+            Assert.Equal(values.FirstOrDefault(), reversedEnumerable.LastOrDefault());
+            Assert.Equal(values.LastOrDefault(), reversedEnumerable.FirstOrDefault());
         }
     }
 }

@@ -8,6 +8,7 @@ namespace LinkedLists.Core.Interfaces
     {
         public void Add(T value);
         public void AddFirst(T value);
+        public void AddRange(IEnumerable<T> values);
         public bool RemoveOne(T value);
         public bool RemoveOne(Func<T, bool> filter);
         public int RemoveAll(T value);

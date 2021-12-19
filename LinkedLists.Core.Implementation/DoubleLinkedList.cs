@@ -49,6 +49,14 @@ namespace LinkedLists.Core.Implementation
             NodesCount++;
         }
 
+        public void AddRange(IEnumerable<T> values)
+        {
+            foreach (var value in values)
+            {
+                Add(value);
+            }
+        }
+
         public bool RemoveOne(T value)
         {
             var current = Head;

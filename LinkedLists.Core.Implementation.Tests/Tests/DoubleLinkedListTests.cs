@@ -56,6 +56,40 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
         }
 
         [Fact]
+        public void AddRange()
+        {
+            // Arrange
+            var earth = AstronomicalObjectMocks.Earth();
+            var moon = AstronomicalObjectMocks.Moon();
+            var sol = AstronomicalObjectMocks.Sol();
+
+            var values = new[] { earth, moon, sol };
+
+            var filledList = new DoubleLinkedList<AstronomicalObject>();
+            var emptyList = new DoubleLinkedList<AstronomicalObject>();
+
+            // Act
+            filledList.AddRange(values);
+            emptyList.AddRange(new AstronomicalObject[] { });
+
+            // Assert
+            var i = 0;
+            foreach (var value in filledList)
+            {
+                Assert.Equal(values[i], value);
+                i++;
+            }
+
+            Assert.Equal(values.Length, filledList.Length());
+            Assert.Equal(earth, filledList.FirstOrDefault());
+            Assert.Equal(sol, filledList.LastOrDefault());
+
+            Assert.Equal(0, emptyList.Length());
+            Assert.Equal(default, emptyList.FirstOrDefault());
+            Assert.Equal(default, emptyList.LastOrDefault());
+        }
+
+        [Fact]
         public void RemoveOne()
         {
             // Arrange
@@ -306,11 +340,14 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             foreach (var value in values)
                 filledList.Add(value);
 
+            var lambdaResult = filledList.LastOrDefault(o => o.Name != sol.Name);
+
             // Act
 
             // Assert
             Assert.Equal(default, emptyList.LastOrDefault());
             Assert.Equal(sol, filledList.LastOrDefault());
+            Assert.Equal(moon, lambdaResult);
         }
 
         [Fact]

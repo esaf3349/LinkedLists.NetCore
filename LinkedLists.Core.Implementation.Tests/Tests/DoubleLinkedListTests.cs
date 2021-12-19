@@ -7,15 +7,15 @@ using Xunit;
 
 namespace LinkedLists.Core.Implementation.Tests.Tests
 {
-    public class SimpleLinkedListTests
+    public class DoubleLinkedListTests
     {
         [Fact]
         public void Add()
         {
             // Arrange
-            var values = new [] { AstronomicalObjectMocks.Earth(), AstronomicalObjectMocks.Moon(), AstronomicalObjectMocks.Sol() };
+            var values = new[] { AstronomicalObjectMocks.Earth(), AstronomicalObjectMocks.Moon(), AstronomicalObjectMocks.Sol() };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             // Act
             foreach (var value in values)
@@ -38,7 +38,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             // Arrange
             var values = new[] { AstronomicalObjectMocks.Earth(), AstronomicalObjectMocks.Moon(), AstronomicalObjectMocks.Sol() };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             // Act
             foreach (var value in values)
@@ -64,7 +64,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, earth };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 linkedList.Add(value);
@@ -98,7 +98,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 linkedList.Add(value);
@@ -131,7 +131,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, earth };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 linkedList.Add(value);
@@ -163,7 +163,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 linkedList.Add(value);
@@ -202,8 +202,8 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
             var values1 = new[] { earth, moon, sol };
             var values2 = new[] { orion, milkyWay };
 
-            var linkedList1 = new SimpleLinkedList<AstronomicalObject>();
-            var linkedList2 = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList1 = new DoubleLinkedList<AstronomicalObject>();
+            var linkedList2 = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values1)
                 linkedList1.Add(value);
@@ -241,7 +241,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol, orion, milkyWay };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 linkedList.Add(value);
@@ -274,8 +274,8 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol };
 
-            var emptyList = new SimpleLinkedList<AstronomicalObject>();
-            var filledList = new SimpleLinkedList<AstronomicalObject>();
+            var emptyList = new DoubleLinkedList<AstronomicalObject>();
+            var filledList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 filledList.Add(value);
@@ -300,8 +300,8 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol };
 
-            var emptyList = new SimpleLinkedList<AstronomicalObject>();
-            var filledList = new SimpleLinkedList<AstronomicalObject>();
+            var emptyList = new DoubleLinkedList<AstronomicalObject>();
+            var filledList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 filledList.Add(value);
@@ -323,8 +323,8 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol };
 
-            var emptyList = new SimpleLinkedList<AstronomicalObject>();
-            var filledList = new SimpleLinkedList<AstronomicalObject>();
+            var emptyList = new DoubleLinkedList<AstronomicalObject>();
+            var filledList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 filledList.Add(value);
@@ -351,7 +351,7 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
 
             var values = new[] { earth, moon, sol };
 
-            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+            var linkedList = new DoubleLinkedList<AstronomicalObject>();
 
             foreach (var value in values)
                 linkedList.Add(value);

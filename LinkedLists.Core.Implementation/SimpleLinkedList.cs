@@ -10,11 +10,11 @@ namespace LinkedLists.Core.Implementation
 {
     public class SimpleLinkedList<T> : ISimpleLinkedList<T>
     {
-        private ISimpleLinkedNode<T> Head;
-        private ISimpleLinkedNode<T> Tail;
-        private int NodesCount;
+        protected ISimpleLinkedNode<T> Head;
+        protected ISimpleLinkedNode<T> Tail;
+        protected int NodesCount;
 
-        public void Add(T value)
+        public virtual void Add(T value)
         {
             var node = new SimpleLinkedNode<T>(value);
 
@@ -28,25 +28,24 @@ namespace LinkedLists.Core.Implementation
             NodesCount++;
         }
 
-        public void AddFirst(T value)
+        public virtual void AddFirst(T value)
         {
             var node = new SimpleLinkedNode<T>(value);
 
             if (Head == null)
             {
-                Head = node;
                 Tail = node;
             }
             else
             {
                 node.Next = Head;
-                Head = node;
             }
+            Head = node;
 
             NodesCount++;
         }
 
-        public bool RemoveOne(T value)
+        public virtual bool RemoveOne(T value)
         {
             var current = Head;
             ISimpleLinkedNode<T> previous = null;
@@ -81,7 +80,7 @@ namespace LinkedLists.Core.Implementation
             return false;
         }
 
-        public bool RemoveOne(Func<T, bool> filter)
+        public virtual bool RemoveOne(Func<T, bool> filter)
         {
             var current = Head;
             ISimpleLinkedNode<T> previous = null;
@@ -116,7 +115,7 @@ namespace LinkedLists.Core.Implementation
             return false;
         }
 
-        public int RemoveAll(T value)
+        public virtual int RemoveAll(T value)
         {
             var current = Head;
             ISimpleLinkedNode<T> previousAcceptable = null;
@@ -154,7 +153,7 @@ namespace LinkedLists.Core.Implementation
             return removedCount;
         }
 
-        public int RemoveAll(Func<T, bool> filter)
+        public virtual int RemoveAll(Func<T, bool> filter)
         {
             var current = Head;
             ISimpleLinkedNode<T> previousAcceptable = null;

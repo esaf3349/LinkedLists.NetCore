@@ -14,7 +14,7 @@ namespace LinkedLists.Core.Implementation
         protected ISimpleLinkedNode<T> Tail;
         protected int NodesCount;
 
-        public virtual void Add(T value)
+        public void Add(T value)
         {
             var node = new SimpleLinkedNode<T>(value);
 
@@ -28,7 +28,7 @@ namespace LinkedLists.Core.Implementation
             NodesCount++;
         }
 
-        public virtual void AddFirst(T value)
+        public void AddFirst(T value)
         {
             var node = new SimpleLinkedNode<T>(value);
 
@@ -45,7 +45,7 @@ namespace LinkedLists.Core.Implementation
             NodesCount++;
         }
 
-        public virtual bool RemoveOne(T value)
+        public bool RemoveOne(T value)
         {
             var current = Head;
             ISimpleLinkedNode<T> previous = null;
@@ -80,7 +80,7 @@ namespace LinkedLists.Core.Implementation
             return false;
         }
 
-        public virtual bool RemoveOne(Func<T, bool> filter)
+        public bool RemoveOne(Func<T, bool> filter)
         {
             var current = Head;
             ISimpleLinkedNode<T> previous = null;
@@ -115,7 +115,7 @@ namespace LinkedLists.Core.Implementation
             return false;
         }
 
-        public virtual int RemoveAll(T value)
+        public int RemoveAll(T value)
         {
             var current = Head;
             ISimpleLinkedNode<T> previousAcceptable = null;
@@ -153,7 +153,7 @@ namespace LinkedLists.Core.Implementation
             return removedCount;
         }
 
-        public virtual int RemoveAll(Func<T, bool> filter)
+        public int RemoveAll(Func<T, bool> filter)
         {
             var current = Head;
             ISimpleLinkedNode<T> previousAcceptable = null;

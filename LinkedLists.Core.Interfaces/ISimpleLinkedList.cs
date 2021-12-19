@@ -21,5 +21,6 @@ namespace LinkedLists.Core.Interfaces
         public int Length();
         public bool Any();
         public bool Any(Func<T, bool> filter);
+        public ISimpleLinkedList<T> GetReverse();
     }
 }

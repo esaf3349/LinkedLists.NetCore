@@ -376,6 +376,36 @@ namespace LinkedLists.Core.Implementation.Tests.Tests
         }
 
         [Fact]
+        public void GetReverse()
+        {
+            // Arrange
+            var earth = AstronomicalObjectMocks.Earth();
+            var moon = AstronomicalObjectMocks.Moon();
+            var sol = AstronomicalObjectMocks.Sol();
+
+            var values = new[] { earth, moon, sol };
+
+            var linkedList = new SimpleLinkedList<AstronomicalObject>();
+
+            foreach (var value in values)
+                linkedList.Add(value);
+
+            // Act
+            var reversedList = linkedList.GetReverse();
+
+            // Assert
+            int i = values.Length - 1;
+            foreach (var value in reversedList)
+            {
+                Assert.Equal(values[i], value);
+                i--;
+            }
+
+            Assert.Equal(earth, reversedList.LastOrDefault());
+            Assert.Equal(sol, reversedList.FirstOrDefault());
+        }
+
+        [Fact]
         public void GetEnumerator()
         {
             // Arrange

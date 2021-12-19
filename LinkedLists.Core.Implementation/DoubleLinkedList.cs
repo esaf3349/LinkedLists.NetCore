@@ -327,6 +327,20 @@ namespace LinkedLists.Core.Implementation
             return default;
         }
 
+        public ISimpleLinkedList<T> GetReverse()
+        {
+            ISimpleLinkedNode<T> current = Head;
+            var reversedList = new DoubleLinkedList<T>();
+
+            while (current != null)
+            {
+                reversedList.AddFirst(current.Value);
+                current = current.Next;
+            }
+
+            return reversedList;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             IDoubleLinkedNode<T> current = Head;
